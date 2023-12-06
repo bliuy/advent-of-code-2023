@@ -3,6 +3,16 @@ use std::{
     io::{BufRead, BufReader},
 };
 
+
+/// Reads a file given its file path and returns a buffered reader.
+///
+/// # Arguments
+///
+/// * `fp` - A string slice that represents the file path.
+///
+/// # Returns
+///
+/// A `BufReader<File>` that allows efficient reading of the file.
 fn read_file(fp: &str) -> BufReader<File> {
     // Printing the filepath to be read from
     println!("Reading file from the following filepath: {}", fp);
@@ -16,12 +26,19 @@ fn read_file(fp: &str) -> BufReader<File> {
     reader
 }
 
-// Implementing the search function
-// This is a naive search function
-// It is not very efficient, but it is easy to understand
+/// Performs a naive search on the given sentence.
+/// 
+/// This function takes a reference to a string `sentence` and returns a tuple containing two characters.
+/// The naive search algorithm searches for the first two distinct characters in the sentence and returns them in a tuple.
+/// 
+/// # Arguments
+/// 
+/// * `sentence` - The string to perform the search on.
+/// 
+/// # Returns
+/// 
+/// A tuple containing the first two distinct characters found in the sentence.
 fn naive_search(sentence: &str) -> (char, char) {
-    // Printing the sentence to be searched
-    println!("Searching the following sentence: {}", sentence);
 
     // Searching for the first digit
     let first_digit = sentence
@@ -44,7 +61,11 @@ fn main() {
     // Reading the file
     let reader = read_file("src/bin/problem_1/inputs/input.txt");
 
+    // Initializing the counter
     let mut counter = 0;
+
+    // Starting the timer
+    let start = std::time::Instant::now();
 
     // Printing the contents of the file
     for line in reader.lines() {
@@ -63,6 +84,10 @@ fn main() {
         counter += result;
     }
 
+    // Stoping the timer
+    let duration = start.elapsed();
+
     // Printing the result
     println!("The result is: {}", counter);
+    println!("Time elapsed for the naive search algorithm: {:?}", duration);
 }
